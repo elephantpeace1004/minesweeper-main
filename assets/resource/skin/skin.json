@@ -1,0 +1,14 @@
+{
+  "com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle": {
+    "default": {
+      "font": "your-font-name",
+      "fontColor": {
+        "name": "white",
+        "r": 1,
+        "g": 1,
+        "b": 1,
+        "a": 1
+      }
+    }
+  }
+}
