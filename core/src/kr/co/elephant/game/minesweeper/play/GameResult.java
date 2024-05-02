@@ -11,12 +11,25 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Align;
 
 import kr.co.elephant.game.minesweeper.common.SettingConfig;
 import kr.co.elephant.game.minesweeper.network.HttpApi;
 import kr.co.elephant.game.minesweeper.play.MineSweeperPlay;
+import kr.co.elephant.game.minesweeper.screen.HelpScreen;
+import kr.co.elephant.game.minesweeper.screen.LevelScreen;
+import kr.co.elephant.game.minesweeper.screen.RankingScreen;
+import kr.co.elephant.game.minesweeper.service.ButtonManager;
 import kr.co.elephant.game.minesweeper.service.FontManager;
 import kr.co.elephant.game.minesweeper.service.ImageManager;
 import kr.co.elephant.game.minesweeper.service.SoundManager;
@@ -26,15 +39,18 @@ public class GameResult {
     private MineSweeperPlay mineSweeperPlay;
     private String gameTime;
 
+
     public GameResult(MineSweeperPlay mineSweeperPlay){
         this.soundManager = SoundManager.getInstance();
         this.mineSweeperPlay = mineSweeperPlay;
+
     }
 
     public void show(){
         int nowLevel = mineSweeperPlay.nowLevel;
         int saveLevel = SettingConfig.getLevel();
         soundManager.stopBGM();
+
 
         // 반투명 배경과 흰가운데 배경
         Gdx.gl20.glEnable(GL20.GL_BLEND);

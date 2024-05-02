@@ -21,12 +21,15 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import kr.co.elephant.game.minesweeper.GameMain;
 import kr.co.elephant.game.minesweeper.common.CommonConfig;
 import kr.co.elephant.game.minesweeper.component.Cell;
+import kr.co.elephant.game.minesweeper.play.game.UiRenderer;
 import kr.co.elephant.game.minesweeper.screen.MainMenuScreen;
 import kr.co.elephant.game.minesweeper.service.ColorManager;
 import kr.co.elephant.game.minesweeper.service.FontManager;
@@ -70,16 +73,20 @@ public class MineSweeperPlay extends Play implements Screen {
     boolean stateSendScore = false;
 
     public MineSweeperPlay(GameMain game, int boardWidth, int boardHeight, int mines, int nowLevel) {
+
+
         gameInputProcessor = new GameInputProcessor(this);
         InputMultiplexer inputMultiplexer = new InputMultiplexer();
         inputMultiplexer.addProcessor(gameInputProcessor);
        // inputMultiplexer.addProcessor(new GestureDetector(0.2f, 0.2f, 0.2f, 0.15f,new GameGestureProcessor(this)));
         Gdx.input.setInputProcessor(inputMultiplexer);
-
-        soundManager = SoundManager.getInstance();
         gameResult = new GameResult(this);
+        soundManager = SoundManager.getInstance();
+
+
         this.nowLevel = nowLevel;
         init(game,boardWidth,boardHeight,mines);
+
     }
 
     private void init(GameMain game, int boardWidth, int boardHeight, int mines){
@@ -95,6 +102,8 @@ public class MineSweeperPlay extends Play implements Screen {
 
     @Override
     public void render(float delta) {
+
+
         Gdx.gl20.glClearColor(0.2f, 0.2f, 0.2f, 1);
         Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
         inRenderLongClickEvent();
@@ -278,6 +287,7 @@ public class MineSweeperPlay extends Play implements Screen {
         replayButton = createTextButton(bludButtonStyle, ImageManager.RETURN,-55);
         menusButton = createTextButton(bludButtonStyle, ImageManager.MENU_LIST,55);
         rightButton = createTextButton(bludButtonStyle, ImageManager.ARROW_RIGHT, 165);
+
     }
 
     private TextButton createTextButton(TextButton.TextButtonStyle style, String imagePath, int addMargin) {
@@ -376,7 +386,6 @@ public class MineSweeperPlay extends Play implements Screen {
     public void resize(int width, int height) {
 
     }
-
     @Override
     public void pause() {
         gameStateBeforePause = gameState;

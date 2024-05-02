@@ -32,20 +32,57 @@ public  class HelpScreen extends AbstractScreen {
         Label.LabelStyle labelStyle = new Label.LabelStyle(bitmapFont, skin.getColor("black"));
 
         Table mainTable = new Table();
-        mainTable.setFillParent(true);
+       // mainTable.setFillParent(true);
 
         Table table = new Table();
-        table.setFillParent(true);
+       // table.setFillParent(true);
 
 
-        Texture separatorTexture = new Texture(Gdx.files.internal(ImageManager.help001));
-        TextureRegionDrawable separatorDrawable = new TextureRegionDrawable(new TextureRegion(separatorTexture));
-        table.add(new Image(separatorDrawable)).width(Gdx.graphics.getWidth() - 80).pad(10).expandX().row();
-        table.add(new Image(separatorDrawable)).width(Gdx.graphics.getWidth() - 80).pad(10).expandX().row();
-        table.add(new Image(separatorDrawable)).width(Gdx.graphics.getWidth() - 80).pad(10).expandX().row();
+//        table.setWidth(stage.getWidth()); // 테이블의 너비를 뷰포트의 너비로 설정
+//        table.align(Align.center);
+
+        Texture Group1 = new Texture(Gdx.files.internal(ImageManager.Group1));
+        TextureRegionDrawable Group1D = new TextureRegionDrawable(new TextureRegion(Group1));
+
+        Texture Group2 = new Texture(Gdx.files.internal(ImageManager.Group2));
+        TextureRegionDrawable Group2D = new TextureRegionDrawable(new TextureRegion(Group2));
+
+        Texture Group3 = new Texture(Gdx.files.internal(ImageManager.Group3));
+        TextureRegionDrawable Group3D = new TextureRegionDrawable(new TextureRegion(Group3));
+
+        Texture Group4 = new Texture(Gdx.files.internal(ImageManager.Group4));
+        TextureRegionDrawable Group4D = new TextureRegionDrawable(new TextureRegion(Group4));
+
+        Texture Group5 = new Texture(Gdx.files.internal(ImageManager.Group5));
+        TextureRegionDrawable Group5D = new TextureRegionDrawable(new TextureRegion(Group5));
+
+        Texture Group6 = new Texture(Gdx.files.internal(ImageManager.Group6));
+        TextureRegionDrawable Group6D = new TextureRegionDrawable(new TextureRegion(Group6));
+
+        Texture Group7 = new Texture(Gdx.files.internal(ImageManager.Group7));
+        TextureRegionDrawable Group7D = new TextureRegionDrawable(new TextureRegion(Group7));
+
+        Texture Group8 = new Texture(Gdx.files.internal(ImageManager.Group8));
+        TextureRegionDrawable Group8D = new TextureRegionDrawable(new TextureRegion(Group8));
 
 
-        Label title = new Label("Here is the translation of the instructions for playing Minesweeper:", labelStyle);
+        table.add(new Image(Group1D)).width(Gdx.graphics.getWidth() - 180).pad(10).expandX().height(800).row();
+        table.add(new Image(Group2D)).width(Gdx.graphics.getWidth() - 180).pad(10).expandX().height(800).row();
+
+        table.add(new Image(Group3D)).width(Gdx.graphics.getWidth() - 180).pad(10).expandX().height(800).row();
+        table.add(new Image(Group4D)).width(Gdx.graphics.getWidth() - 180).pad(10).expandX().height(800).row();
+
+        table.add(new Image(Group5D)).width(Gdx.graphics.getWidth() - 180).pad(10).expandX().height(800).row();
+        table.add(new Image(Group6D)).width(Gdx.graphics.getWidth() - 180).pad(10).expandX().height(800).row();
+
+        table.add(new Image(Group7D)).width(Gdx.graphics.getWidth() - 180).pad(10).expandX().height(1000).row();
+        table.add(new Image(Group8D)).width(Gdx.graphics.getWidth() - 180).pad(10).expandX().height(1000).row();
+
+
+        //table.add(new Image(separatorDrawable)).width(Gdx.graphics.getWidth() - 80).pad(10).expandX().row();
+
+
+        Label title = new Label("\n\nMinesweeper game instructions:", labelStyle);
         title.setWrap(true);
         table.add(title).width(Gdx.graphics.getWidth() - 80).pad(10).expandX().fillX().row();
         table.add().height(50).expandX().fillX().row();
@@ -66,18 +103,20 @@ public  class HelpScreen extends AbstractScreen {
         }
         table.padTop(30); // 여백 추가
 
+
         mainTable.add(table).top().expandX().fillX().row();
 
         //stage.addActor(mainTable);
 
         ScrollPane scrollPane = new ScrollPane(mainTable);
-        scrollPane.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight() + 370);
+        scrollPane.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight() - 160);
         scrollPane.setFadeScrollBars(false);
         scrollPane.setScrollingDisabled(true, false); // 수직 스크롤만 허용
         // ScrollPane의 크기를 고려하여 화면 하단에 위치시키기
         float scrollPaneX = (Gdx.graphics.getWidth() - scrollPane.getWidth()) / 2f ;
         float scrollPaneY = 160;
         scrollPane.setPosition(scrollPaneX, scrollPaneY);
+
 
         stage.addActor(scrollPane);
 
@@ -102,7 +141,6 @@ public  class HelpScreen extends AbstractScreen {
 
 
     }
-
 
     @Override
     public void render(float delta) {

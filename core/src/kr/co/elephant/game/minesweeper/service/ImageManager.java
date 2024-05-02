@@ -25,6 +25,20 @@ public class ImageManager {
     public static final String YELLOW_BUTTON_05 = IMG_FIGMA_PATH + "menu_button2.png";
     public static final String BG_WINDOW_ROUND = IMG_FIGMA_PATH + "menu_window2.png";
 
+    public static final String ICON_STAR = IMG_FIGMA_PATH + "star.png";
+
+    public static final String Group1 = IMG_FIGMA_PATH + "Group1.png";
+    public static final String Group2 = IMG_FIGMA_PATH + "Group2.png";
+    public static final String Group3 = IMG_FIGMA_PATH + "Group3.png";
+    public static final String Group4 = IMG_FIGMA_PATH + "Group4.png";
+    public static final String Group5 = IMG_FIGMA_PATH + "Group5.png";
+    public static final String Group6 = IMG_FIGMA_PATH + "Group6.png";
+    public static final String Group7 = IMG_FIGMA_PATH + "Group7.png";
+    public static final String Group8 = IMG_FIGMA_PATH + "Group8.png";
+
+
+
+
 
     // 보드셀 기본회색 이미지로 가져올때 사용해보기
     public static final String CELL_GREY = IMG_FIGMA_PATH + "cell_grey.png";
@@ -59,7 +73,7 @@ public class ImageManager {
 
     public static final String BOOM = BG_PATH + "boom.png";
     public static final String MINESWEEPER = BG_PATH + "Minesweeper.png";
-//    public static final String BG_WINDOW_ROUND = BG_PATH + "windowround.png";
+    public static final String BG_WINDOW_ROUND_500 = BG_PATH + "windowround.png";
 
 
     public static final String BLUE_BUTTON_10 = KENNEY_PATH + "blue_button10.png";

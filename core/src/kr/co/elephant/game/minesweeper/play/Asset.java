@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 import kr.co.elephant.game.minesweeper.GameMain;
+import kr.co.elephant.game.minesweeper.service.AbstractScreen;
 import kr.co.elephant.game.minesweeper.service.FontManager;
 import kr.co.elephant.game.minesweeper.service.ImageManager;
 
@@ -24,4 +25,6 @@ public class Asset {
         font = game.assets.get(FontManager.PEACE_FONT, BitmapFont.class);
         skin = new Skin(Gdx.files.internal(ImageManager.SKIN_UI));
     }
+
+
 }

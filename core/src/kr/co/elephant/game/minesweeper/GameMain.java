@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import kr.co.elephant.game.minesweeper.common.CommonConfig;
 import kr.co.elephant.game.minesweeper.common.SettingConfig;
+import kr.co.elephant.game.minesweeper.play.game.GamePlay;
 import kr.co.elephant.game.minesweeper.screen.MainMenuScreen;
 import kr.co.elephant.game.minesweeper.service.FontManager;
 import kr.co.elephant.game.minesweeper.service.ImageManager;
@@ -41,6 +42,7 @@ public class GameMain extends Game  {
 
         SettingConfig.load();
         setScreen(new MainMenuScreen(this));
+        //setScreen(new GamePlay(this));
     }
     private void loadAssets() {
         assets.load(ImageManager.ATLAS_CELL, TextureAtlas.class);

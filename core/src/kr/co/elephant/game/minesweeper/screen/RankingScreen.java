@@ -9,8 +9,10 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
@@ -27,10 +29,12 @@ import com.google.gson.Gson;
 
 import java.util.List;
 
+import kr.co.elephant.game.minesweeper.common.SettingConfig;
 import kr.co.elephant.game.minesweeper.dto.RankDto;
 import kr.co.elephant.game.minesweeper.dto.ResponseDto;
 import kr.co.elephant.game.minesweeper.network.HttpApi;
 import kr.co.elephant.game.minesweeper.network.HttpRequestManager;
+import kr.co.elephant.game.minesweeper.play.MineSweeperPlay;
 import kr.co.elephant.game.minesweeper.service.AbstractScreen;
 import kr.co.elephant.game.minesweeper.GameMain;
 import kr.co.elephant.game.minesweeper.service.ButtonManager;
@@ -46,6 +50,9 @@ public  class RankingScreen extends AbstractScreen {
     private TextButton closeButton;
     // TODO checkbox to enable question marks
 
+    String myId = "";
+    int ranking = 0;
+
     public RankingScreen(final GameMain game) {
         super(game);
         setupUi();
@@ -57,31 +64,14 @@ public  class RankingScreen extends AbstractScreen {
      */
     private void setupUi() {
 
-        Table table = new Table();
-        table.setSize(Gdx.graphics.getWidth(), 140);
-        table.setPosition(0, Gdx.graphics.getHeight() - 140);
+
+        Table memuTable = new Table();
+        memuTable.setSize(Gdx.graphics.getWidth(), 200);
+        memuTable.setPosition(0, Gdx.graphics.getHeight() - 200);
         // 메뉴 테이블의 배경을 설정합니다.
-        Drawable tableBackground = new TextureRegionDrawable(new TextureRegion(new Texture(ImageManager.A6A480)));
-        table.setBackground(tableBackground);
-        stage.addActor(table);
-
-
-
-        BitmapFont bitmapFont = game.assets.get(FontManager.PEACE_FONT, BitmapFont.class); //new BitmapFont();
-        Label.LabelStyle labelStyle = new Label.LabelStyle();
-        labelStyle.font = bitmapFont;
-        labelStyle.fontColor = Color.BLACK; // 원하는 색상으로 변경 가능
-        Label label = new Label("Ranking", labelStyle);
-        float fontSize = 44f;
-        label.setFontScale(fontSize / bitmapFont.getCapHeight());
-
-
-        topTable = new Table();
-        topTable.top();
-        topTable.setFillParent(true);
-        topTable.add(label).expandX().height(120).align(Align.center).padTop(20);
-        stage.addActor(topTable);
-
+        Drawable tableBackgrounds = new TextureRegionDrawable(new TextureRegion(new Texture(ImageManager.A6A480)));
+        memuTable.setBackground(tableBackgrounds);
+        stage.addActor(memuTable);
 
         TextButton exitButton = ButtonManager.createTextButton("MENU", bitmapFont, ImageManager.YELLOW_BUTTON_04,ImageManager.YELLOW_BUTTON_05,"white");
         exitButton.getLabel().setFontScale(2.0f);
@@ -128,10 +118,13 @@ public  class RankingScreen extends AbstractScreen {
 
     private void  afterApi(RankDto rankDto){
 
+
+
         Texture separatorTexture = new Texture(Gdx.files.internal(ImageManager.A6A480));
         TextureRegionDrawable separatorDrawable = new TextureRegionDrawable(new TextureRegion(separatorTexture));
 
         Label.LabelStyle labelStyle = new Label.LabelStyle(bitmapFont, skin.getColor("black"));
+        Label.LabelStyle labelStyleRed = new Label.LabelStyle(bitmapFont, skin.getColor("red"));
         table = new Table(skin);
         table.top();
         float screenWidth = Gdx.graphics.getWidth();
@@ -153,11 +146,12 @@ public  class RankingScreen extends AbstractScreen {
         table.add(new Image(separatorDrawable)).colspan(5).height(2).expandX().fillX().padTop(20).padBottom(20).row();
 
 
-
         int i = 1;
         for(RankDto.Content item : rankDto.getContent()){
-            Label noLabel = new Label(  "" + i++ , labelStyle);
-            Label nameLabel = new Label(item.getMemberId(), labelStyle);
+            Label noLabel = new Label(  "" + i , labelStyle);
+            Label nameLabel1 = new Label(item.getMemberId(), labelStyle);
+            Label nameLabel2 = new Label(item.getMemberId(), labelStyleRed);
+
             Label locationLabel = new Label(  item.getMemberLocation() , labelStyle);
             Label levelLabel = new Label(  item.getMemberLevel() , labelStyle);
             Label scoreLabel = new Label( item.getMemberTime(), labelStyle);
@@ -171,16 +165,27 @@ public  class RankingScreen extends AbstractScreen {
             table.add(dateLabel).height(40).right().expandX();
             table.row();
 
-            table.add().left().expandX();
-            table.add(nameLabel).colspan(4).expandX().height(40).left().row();
+
+
+            String memberId = SettingConfig.getMemberId();
+            if(memberId.equals(item.getMemberId())){
+                myId = memberId;
+                ranking = i;
+                Label tmp = new Label(  "*", labelStyleRed);
+                table.add(tmp).height(40).left().expandX();
+                table.add(nameLabel2).colspan(4).expandX().height(40).left().row();
+            }else{
+                table.add().height(40).left().expandX();
+                table.add(nameLabel1).colspan(4).expandX().height(40).left().row();
+            }
 
             table.add(new Image(separatorDrawable)).colspan(5).height(2).expandX().fillX().padTop(20).padBottom(20).row();
-
+            i++;
         }
         table.pad(20,40,10,40);
 
         ScrollPane scrollPane = new ScrollPane(table);
-        scrollPane.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight() - 320);
+        scrollPane.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight() - 360);
         scrollPane.setFadeScrollBars(false);
         scrollPane.setScrollingDisabled(true, false); // 수직 스크롤만 허용
         // ScrollPane의 크기를 고려하여 화면 하단에 위치시키기
@@ -191,6 +196,27 @@ public  class RankingScreen extends AbstractScreen {
         stage.addActor(scrollPane);
 
 
+
+
+
+        BitmapFont bitmapFont = game.assets.get(FontManager.PEACE_FONT, BitmapFont.class); //new BitmapFont();
+        Label.LabelStyle labelStyleR = new Label.LabelStyle();
+        labelStyleR.font = bitmapFont;
+        labelStyleR.fontColor = Color.BLACK; // 원하는 색상으로 변경 가능
+        Label label = new Label("Ranking", labelStyleR);
+        float fontSize = 44f;
+        label.setFontScale(fontSize / bitmapFont.getCapHeight());
+
+        Label mylabel = new Label("MyRanking : " + ranking + "  (" + myId +")", labelStyleR);
+
+        topTable = new Table();
+        topTable.top();
+        topTable.setFillParent(true);
+        topTable.add(label).expandX().height(120).align(Align.center).padTop(20).row();
+        topTable.add(mylabel).expandX().height(40).align(Align.center).row();
+        stage.addActor(topTable);
     }
+
+
 
 }

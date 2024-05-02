@@ -7,7 +7,6 @@ import kr.co.elephant.game.minesweeper.common.SettingConfig;
 
 public class Play extends Board {
 
-
     public enum GameState {        NOT_STARTED, PLAYING, PAUSED, WON, LOST    }
     public GameState gameState, gameStateBeforePause;
     public  int cellsFlagged, cellsOpened, mines, nowLevel;
