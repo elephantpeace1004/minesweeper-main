@@ -27,6 +27,8 @@ public class PopupWindow {
 
     private InputProcessor previousInputProcessor;
 
+
+
     public PopupWindow(Skin skin, String title, BitmapFont font) {
         this.stage = new Stage();
         this.font = font;
@@ -49,8 +51,6 @@ public class PopupWindow {
 
         window.add(closeButton).pad(10);
         stage.addActor(window);
-
-       // Gdx.input.setInputProcessor(stage);
     }
 
     public void show() {
