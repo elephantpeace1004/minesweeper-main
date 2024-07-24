@@ -24,9 +24,7 @@ public class PopupWindow {
     private SpriteBatch batch;
     private ShapeRenderer shapeRenderer;
     private BitmapFont font;
-
     private InputProcessor previousInputProcessor;
-
 
 
     public PopupWindow(Skin skin, String title, BitmapFont font) {
