@@ -88,10 +88,10 @@ public class MineSweeperPlay extends Play implements Screen {
 
     }
 
+
     private void init(GameMain game, int boardWidth, int boardHeight, int mines){
         this.game = game;
         batch = new SpriteBatch();
-
         initAsset();
         initBoard(boardWidth, boardHeight, mines);
         initStyle();
