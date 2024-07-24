@@ -97,8 +97,10 @@ public class GameInputProcessor implements  InputProcessor {
             soundManager.setBGM();
             return true;
         }
+        // 상단메뉴아이콘 클릭
         if(mineSweeperPlay.menuSmallButtonBounds.contains(mouseX, mouseY)){
-            mineSweeperPlay.loseGame();
+            //mineSweeperPlay.loseGame();
+            mineSweeperPlay.openPopupWindow();
             return true;
         }
 
@@ -117,7 +119,7 @@ public class GameInputProcessor implements  InputProcessor {
                 Gdx.app.log(CommonConfig.APP_TAG, "----------- rightButtonBounds nextGame ");
                if(nowLevel < saveLevel) mineSweeperPlay.nextGame();
             }else if(mineSweeperPlay.leftButtonBounds.contains(mouseX, mouseY)){
-                Gdx.app.log(CommonConfig.APP_TAG, "----------- rightButtonBounds beforeGame ");
+                Gdx.app.log(CommonConfig.APP_TAG, "----------- leftButtonBounds beforeGame ");
                 if(nowLevel > 0) mineSweeperPlay.beforeGame();
             } else {
                 Gdx.app.log(CommonConfig.APP_TAG, "Button not Clicked!---------");

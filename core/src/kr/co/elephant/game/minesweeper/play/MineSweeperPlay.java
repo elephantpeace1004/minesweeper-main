@@ -30,6 +30,7 @@ import kr.co.elephant.game.minesweeper.GameMain;
 import kr.co.elephant.game.minesweeper.common.CommonConfig;
 import kr.co.elephant.game.minesweeper.component.Cell;
 import kr.co.elephant.game.minesweeper.play.game.UiRenderer;
+import kr.co.elephant.game.minesweeper.play.ui.PopupWindow;
 import kr.co.elephant.game.minesweeper.screen.MainMenuScreen;
 import kr.co.elephant.game.minesweeper.service.ColorManager;
 import kr.co.elephant.game.minesweeper.service.FontManager;
@@ -72,9 +73,9 @@ public class MineSweeperPlay extends Play implements Screen {
     boolean actionBoom = false;
     boolean stateSendScore = false;
 
+    private PopupWindow popupWindow;
+
     public MineSweeperPlay(GameMain game, int boardWidth, int boardHeight, int mines, int nowLevel) {
-
-
         gameInputProcessor = new GameInputProcessor(this);
         InputMultiplexer inputMultiplexer = new InputMultiplexer();
         inputMultiplexer.addProcessor(gameInputProcessor);
@@ -82,8 +83,6 @@ public class MineSweeperPlay extends Play implements Screen {
         Gdx.input.setInputProcessor(inputMultiplexer);
         gameResult = new GameResult(this);
         soundManager = SoundManager.getInstance();
-
-
         this.nowLevel = nowLevel;
         init(game,boardWidth,boardHeight,mines);
 
@@ -92,17 +91,26 @@ public class MineSweeperPlay extends Play implements Screen {
     private void init(GameMain game, int boardWidth, int boardHeight, int mines){
         this.game = game;
         batch = new SpriteBatch();
+
         initAsset();
         initBoard(boardWidth, boardHeight, mines);
         initStyle();
         initUI();
         initValue();
         initCamera();
+
+        popupWindow = new PopupWindow(skin, "Pause Menu", game.assets.get(FontManager.PEACE_FONT, BitmapFont.class));
+        popupWindow.show();
+        popupWindow.hide();
+    }
+
+    public void openPopupWindow(){
+        Gdx.app.log(CommonConfig.APP_TAG, "---- openPopupWindow show");
+        popupWindow.show();
     }
 
     @Override
     public void render(float delta) {
-
 
         Gdx.gl20.glClearColor(0.2f, 0.2f, 0.2f, 1);
         Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -137,6 +145,16 @@ public class MineSweeperPlay extends Play implements Screen {
         }else{
             stateSendScore = false;
         }
+
+        // 팝업윈도우
+        if (popupWindow.isVisible()) {
+            popupWindow.show();
+        }else{
+            popupWindow.hide();
+        }
+        popupWindow.render(delta);
+
+
     }
 
 
